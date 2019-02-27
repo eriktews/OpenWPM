@@ -33,6 +33,7 @@ script:
 
 jobs:
   include:
+    language:
     python:
     env:
       - TESTS="Docker"
