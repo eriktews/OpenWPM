@@ -43,5 +43,4 @@ jobs:
     before_script:
     install:
     script:
-      - docker build -f Dockerfile -t openwpm .
-      - docker build -f Dockerfile-dev -t openwpm-dev .
+      - docker build -f Dockerfile -t openwpm . && docker build -f Dockerfile-dev -t openwpm-dev .
