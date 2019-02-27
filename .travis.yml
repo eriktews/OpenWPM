@@ -33,7 +33,7 @@ script:
 
 jobs:
   include:
-    python: "3.5"
+    python:
     env:
       - TESTS="Docker"
     services:
