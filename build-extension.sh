@@ -13,7 +13,7 @@ rm -rf automation/Extension/firefox
 
 rm -rf automation/Extension/openwpm-webext-instrumentation
 git clone https://github.com/eriktews/openwpm-firefox-webext.git automation/Extension/firefox
-git clone https://github.com/mozilla/openwpm-webext-instrumentation.git automation/Extension/openwpm-webext-instrumentation
+git clone https://github.com/eriktews/openwpm-webext-instrumentation.git automation/Extension/openwpm-webext-instrumentation
 cd automation/Extension/openwpm-webext-instrumentation
 npm install
 npm run build
