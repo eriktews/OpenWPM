@@ -9,41 +9,48 @@ if [[ $# -gt 0 ]]; then
     exit 1
 fi
 
-brew install leveldb
+# Create and activate a local Python 3 venv
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
 
-pip install -U -r requirements.txt
+# Install all requirements except plyvel
+cat requirements.txt | grep -v plyvel > requirements.mac.txt
+CFLAGS='-mmacosx-version-min=10.7 -stdlib=libc++' pip install -r requirements.mac.txt
+rm requirements.mac.txt
 
-# Make npm packages available
+# A recent version of leveldb is required
+brew install leveldb || brew upgrade leveldb
+
+# Make sure we build plyvel properly to work with the installed leveldb on recent OSX versions
+CFLAGS='-mmacosx-version-min=10.7 -stdlib=libc++ -std=c++11' pip install --force-reinstall --ignore-installed --no-binary :all: plyvel
+
+# Make npm available (used by build-extension.sh)
 brew install node || brew upgrade node
 
-# Grab the latest version of Firefox ESR.
-# For security reasons it is very important to keep up with patch releases
-# of the ESR, but a major version bump needs to be tested carefully.
-# Older ESRs are not supported by geckodriver.
-firefox_version="$(curl 'https://ftp.mozilla.org/pub/firefox/releases/' |
-grep '/pub/firefox/releases/52.' |
-tail -n 1 | sed -e 's/.*releases\///g' | cut -d '/' -f1)"
+# Download the latest Unbranded Firefox Release version
+brew install wget || brew upgrade wget
+wget https://index.taskcluster.net/v1/task/gecko.v2.mozilla-release.latest.firefox.macosx64-add-on-devel/artifacts/public/build/target.dmg
 
-wget "https://ftp.mozilla.org/pub/firefox/releases/${firefox_version}/mac/en-US/Firefox ${firefox_version}.dmg" -O firefox.dmg
-
-#npm install get-firefox
-#npx get-firefox -b esr -p mac -t firefox.dmg
-
-rm -rf Firefox.app
-hdiutil attach -nobrowse -mountpoint /Volumes/firefox-tmp firefox.dmg
-cp -r /Volumes/firefox-tmp/Firefox.app .
+# Install Firefox Nightly
+rm -rf Nightly.app || true
+hdiutil attach -nobrowse -mountpoint /Volumes/firefox-tmp target.dmg
+cp -r /Volumes/firefox-tmp/Nightly.app .
 hdiutil detach /Volumes/firefox-tmp
-rm firefox.dmg
+rm target.dmg
 
 # Selenium 3.3+ requires a 'geckodriver' helper executable, which is not yet
-# packaged. `geckodriver` 0.16.0+ is not compatible with Firefox 52. See:
-# https://github.com/mozilla/geckodriver/issues/743
-# npm geckodriver 1.5.x = geckodriver 0.15.0
-npm install geckodriver@1.5.0
-cp node_modules/geckodriver/geckodriver Firefox.app/Contents/MacOS/
+# packaged.
+GECKODRIVER_VERSION=0.24.0
+GECKODRIVER_ARCH=macos
 
-# Dependencies for OpenWPM development -- NOT needed to run the platform.
-# * Required for compiling Firefox extension
-npm install jpm -g
+wget https://github.com/mozilla/geckodriver/releases/download/v${GECKODRIVER_VERSION}/geckodriver-v${GECKODRIVER_VERSION}-${GECKODRIVER_ARCH}.tar.gz
+tar zxf geckodriver-v${GECKODRIVER_VERSION}-${GECKODRIVER_ARCH}.tar.gz
+rm geckodriver-v${GECKODRIVER_VERSION}-${GECKODRIVER_ARCH}.tar.gz
+mv geckodriver Nightly.app/Contents/MacOS/
 
+# Download and build client extension
+./build-extension.sh
+
+# Install requirements related to OpenWPM development
 pip install -U -r requirements-dev.txt

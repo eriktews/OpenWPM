@@ -7,6 +7,7 @@ docker-volume/
 # firefox directories
 firefox-bin/
 Firefox*.app/
+Nightly*.app/
 
 # VIM tmp files
 *~
@@ -78,5 +79,8 @@ docs/_build/
 # npm packages
 node_modules
 
-# Client Extension
-automation/Extension/firefox
+# built extension
+automation/Extension/firefox/dist
+automation/Extension/firefox/openwpm.xpi
+automation/Extension/firefox/src/content.js
+automation/Extension/firefox/src/feature.js
