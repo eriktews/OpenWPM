@@ -687,7 +687,7 @@ class TestPOSTInstrument(OpenWPMTest):
         post_format = "noKeyValue"
         db = self.visit("/post_request_ajax.html?format=" + post_format)
         post_body = self.get_post_request_body_from_db(db)
-        assert json.loads(post_body).keys() == [
+        assert list(json.loads(post_body).keys()) == [
             "test@example.com name surname"]
 
     def test_record_post_data_ajax_no_key_value_base64_encoded(self):
