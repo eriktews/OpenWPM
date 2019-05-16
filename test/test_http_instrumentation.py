@@ -687,16 +687,18 @@ class TestPOSTInstrument(OpenWPMTest):
         post_format = "noKeyValue"
         db = self.visit("/post_request_ajax.html?format=" + post_format)
         post_body = self.get_post_request_body_from_db(db)
+        # Actually, "test@example.com + name surname" is expected here,
+        # but the plus sign is lost due to the decoding done by Firefox
         assert list(json.loads(post_body).keys()) == [
-            "test@example.com name surname"]
+            "test@example.com   name surname"]
 
     def test_record_post_data_ajax_no_key_value_base64_encoded(self):
         """Test Base64 encoded AJAX payloads (no key=value form)."""
         post_format = "noKeyValueBase64"
         db = self.visit("/post_request_ajax.html?format=" + post_format)
         post_body = self.get_post_request_body_from_db(db)
-        assert [x.replace("=", "") for x in json.loads(post_body).keys()
-                ] == ["dGVzdEBleGFtcGxlLmNvbSBuYW1lIHN1cm5hbWU"]
+        assert list(json.loads(post_body).keys()
+                    ) == ["dGVzdEBleGFtcGxlLmNvbSArIG5hbWUgc3VybmFtZQ"]
 
     def test_record_post_formdata(self):
         post_format = "formData"
