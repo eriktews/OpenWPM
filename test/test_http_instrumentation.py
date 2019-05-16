@@ -695,8 +695,8 @@ class TestPOSTInstrument(OpenWPMTest):
         post_format = "noKeyValueBase64"
         db = self.visit("/post_request_ajax.html?format=" + post_format)
         post_body = self.get_post_request_body_from_db(db)
-        assert [x.replace("=", "") for x in post_body.keys()
-                ] == "dGVzdEBleGFtcGxlLmNvbSBuYW1lIHN1cm5hbWU"
+        assert [x.replace("=", "") for x in json.loads(post_body).keys()
+                ] == ["dGVzdEBleGFtcGxlLmNvbSBuYW1lIHN1cm5hbWU"]
 
     def test_record_post_formdata(self):
         post_format = "formData"
