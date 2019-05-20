@@ -5,6 +5,7 @@ import socket
 import struct
 import threading
 import traceback
+import bson
 
 import dill
 from six.moves import input
@@ -63,6 +64,7 @@ class serversocket:
             'u' : Unicode string in UTF-8
             'd' : dill pickle
             'j' : json
+            'b' : bson
         """
         if self.verbose:
             print("Thread: %s connected to: %s" %
@@ -83,6 +85,8 @@ class serversocket:
                             msg = json.loads(msg.decode('utf-8'))
                         elif serialization == b'u':  # utf-8 serialization
                             msg = msg.decode('utf-8')
+                        elif serialization == b'b':  # bson serialization
+                            msg = bson.BSON.decode(msg)['payload']
                         else:
                             print("Unrecognized serialization type: %r"
                                   % serialization)
@@ -147,6 +151,9 @@ class clientsocket:
         elif self.serialization == 'json':
             msg = json.dumps(msg).encode('utf-8')
             serialization = b'j'
+        elif self.serialization == 'bson':
+            msg = bson.BSON.encode({'payload': msg})
+            serialization = b'b'
         else:
             raise ValueError("Unsupported serialization type set: %s"
                              % serialization)
