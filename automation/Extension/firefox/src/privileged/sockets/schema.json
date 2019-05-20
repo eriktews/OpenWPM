@@ -89,8 +89,8 @@
             "name": "data"
           },
           {
-            "type": "boolean",
-            "name": "json"
+            "type": "string",
+            "name": "encoding"
           }
         ]
       }
