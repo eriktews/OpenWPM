@@ -10,7 +10,7 @@ let DataReceiver = {
       aData = JSON.parse(aData);
     }
     if (encoding == 'b') {
-      aData = BSON.deserialize(aData)['payload']
+      aData = BSON.deserialize(aData)['payload'];
     }
     DataReceiver.callbacks.get(aSocketId)._updateQueue(aData);
   },
