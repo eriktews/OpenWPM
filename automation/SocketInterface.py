@@ -5,9 +5,8 @@ import socket
 import struct
 import threading
 import traceback
+
 import bson
-
-
 import dill
 from six.moves import input
 from six.moves.queue import Queue
