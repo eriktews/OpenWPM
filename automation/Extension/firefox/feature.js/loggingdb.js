@@ -3,7 +3,7 @@ import BSON from "bson";
 
 let crawlID = null;
 let visitID = null;
-let debugging = false;
+let debugging = true;
 let dataAggregator = null;
 let logAggregator = null;
 let listeningSocket = null;
