@@ -1,3 +1,5 @@
+import BSON from "bson";
+
 let DataReceiver = {
   callbacks: new Map(),
   onDataReceived: (aSocketId, aData, encoding) => {
