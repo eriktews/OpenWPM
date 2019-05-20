@@ -63,7 +63,7 @@ this.sockets = class extends ExtensionAPI {
                   let meta = bufferpack.unpack('>Lc', buff);
                   let string = bis.readBytes(meta[0]);
 
-                  if (['j', 'n'].includes(meta[1])) {
+                  if (['j', 'n', 'b'].includes(meta[1])) {
                     gManager.onDataReceivedListeners.forEach((listener) => {
                       listener(port, string, meta[1]);
                     });
