@@ -166,7 +166,7 @@ export let saveContent = async function(content, contentHash) {
     return;
   }
   // dataAggregator.send(BSON.serialize({'payload': ['page_content', [content, contentHash]]}), 'b');
-  dataAggregator.send(JSON.stringify(['page_content', [content, contentHash]]));
+  dataAggregator.send(BSON.serialize({'payload': ['page_content', [content, contentHash]]}), 'b');
 };
 
 function encode_utf8(s) {
