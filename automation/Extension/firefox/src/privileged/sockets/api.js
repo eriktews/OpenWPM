@@ -122,7 +122,7 @@ this.sockets = class extends ExtensionAPI {
           }
         },
 
-        sendData(id, data, json) {
+        sendData(id, data, encoding) {
           if (!gManager.sendingSocketMap.has(id)) {
             console.error("Unknown socket ID; trying to use a socket that doesn't exist yet?");
             return;
@@ -130,8 +130,8 @@ this.sockets = class extends ExtensionAPI {
 
           let socket = gManager.sendingSocketMap.get(id);
           try {
-            let serializationSymbol = json ? 'j' : 'n';
-            let buff = bufferpack.pack('>Lc',[data.length, serializationSymbol]);
+            // let serializationSymbol = json ? 'j' : 'n';
+            let buff = bufferpack.pack('>Lc',[data.length, encoding]);
             socket.bOutputStream.writeByteArray(buff, buff.length);
             socket.stream.write(data, data.length);
             return true;

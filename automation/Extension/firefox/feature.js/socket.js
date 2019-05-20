@@ -47,9 +47,9 @@ export class SendingSocket {
     console.log(`Connected to ${host}:${port}`);
   }
 
-  send(aData, aJSON=true) {
+  send(aData, encoding='j') {
     try {
-      browser.sockets.sendData(this.id, aData, !!aJSON);
+      browser.sockets.sendData(this.id, aData, encoding);
       return true;
     } catch (err) {
       console.error(err,err.message);
