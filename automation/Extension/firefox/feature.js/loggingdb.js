@@ -1,5 +1,5 @@
 import * as socket from "./socket.js";
-import * as BSON from "bson";
+import BSON from "bson";
 
 let crawlID = null;
 let visitID = null;

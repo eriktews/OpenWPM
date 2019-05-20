@@ -1,4 +1,4 @@
-import * as BSON from "bson";
+import BSON from "bson";
 
 let DataReceiver = {
   callbacks: new Map(),
