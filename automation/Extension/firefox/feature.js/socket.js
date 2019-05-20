@@ -1,10 +1,10 @@
 let DataReceiver = {
   callbacks: new Map(),
-  onDataReceived: (aSocketId, aData, aJSON) => {
+  onDataReceived: (aSocketId, aData, encoding) => {
     if (!DataReceiver.callbacks.has(aSocketId)) {
       return;
     }
-    if (aJSON) {
+    if (encoding == 'j') {
       aData = JSON.parse(aData);
     }
     DataReceiver.callbacks.get(aSocketId)._updateQueue(aData);
@@ -56,4 +56,3 @@ export class SendingSocket {
     browser.sockets.close(this.id);
   }
 }
-

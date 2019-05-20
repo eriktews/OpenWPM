@@ -65,7 +65,7 @@ this.sockets = class extends ExtensionAPI {
 
                   if (['j', 'n'].includes(meta[1])) {
                     gManager.onDataReceivedListeners.forEach((listener) => {
-                      listener(port, string, meta[1] == 'j');
+                      listener(port, string, meta[1]);
                     });
                   } else {
                     console.error(`Unsupported serialization type ('${meta[1]}').`);
