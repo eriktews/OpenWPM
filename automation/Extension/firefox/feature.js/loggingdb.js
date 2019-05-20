@@ -1,4 +1,5 @@
 import * as socket from "./socket.js";
+import BSON from "bson";
 
 let crawlID = null;
 let visitID = null;
@@ -164,6 +165,7 @@ export let saveContent = async function(content, contentHash) {
     console.log("LDB contentHash:",contentHash,"with length",content.length);
     return;
   }
+  // dataAggregator.send(BSON.serialize({'payload': ['page_content', [content, contentHash]]}), 'b');
   dataAggregator.send(JSON.stringify(['page_content', [content, contentHash]]));
 };
 
