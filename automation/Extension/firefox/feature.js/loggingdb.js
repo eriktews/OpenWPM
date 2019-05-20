@@ -165,7 +165,8 @@ export let saveContent = async function(content, contentHash) {
     console.log("LDB contentHash:",contentHash,"with length",content.length);
     return;
   }
-  dataAggregator.send(BSON.serialize({'payload': ['page_content', [content, contentHash]]}), 'b');
+  // dataAggregator.send(BSON.serialize({'payload': ['page_content', [content, contentHash]]}), 'b');
+  dataAggregator.send(JSON.stringify(['page_content', [content, contentHash]]));
 };
 
 function encode_utf8(s) {
