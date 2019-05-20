@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Mozilla",
   "dependencies": {
+    "bson": "^4.0.2",
     "openwpm-webext-instrumentation": "github:mozilla/openwpm-webext-instrumentation#master"
   },
   "devDependencies": {
