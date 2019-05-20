@@ -86,7 +86,7 @@ class serversocket:
                         elif serialization == b'u':  # utf-8 serialization
                             msg = msg.decode('utf-8')
                         elif serialization == b'b':  # bson serialization
-                            msg = bson.BSON.decode(msg)['payload']
+                            msg = bson.loads(msg)['payload']
                         else:
                             print("Unrecognized serialization type: %r"
                                   % serialization)
@@ -152,7 +152,7 @@ class clientsocket:
             msg = json.dumps(msg).encode('utf-8')
             serialization = b'j'
         elif self.serialization == 'bson':
-            msg = bson.BSON.encode({'payload': msg})
+            msg = bson.dumps({'payload': msg})
             serialization = b'b'
         else:
             raise ValueError("Unsupported serialization type set: %s"
