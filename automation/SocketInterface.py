@@ -76,6 +76,7 @@ class serversocket:
                 if self.verbose:
                     print("Received message, length %d, serialization %r"
                           % (msglen, serialization))
+                print("Receiving message")
                 msg = self.receive_msg(client, msglen)
                 if serialization != b'n':
                     try:
@@ -86,7 +87,9 @@ class serversocket:
                         elif serialization == b'u':  # utf-8 serialization
                             msg = msg.decode('utf-8')
                         elif serialization == b'b':  # bson serialization
+                            print("Trying to decode bson")
                             msg = bson.loads(msg)['payload']
+                            print("Finished bson")
                         else:
                             print("Unrecognized serialization type: %r"
                                   % serialization)
