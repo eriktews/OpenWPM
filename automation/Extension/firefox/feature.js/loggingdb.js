@@ -164,6 +164,8 @@ export let saveContent = async function(content, contentHash) {
     console.log("LDB contentHash:",contentHash,"with length",content.length);
     return;
   }
+  // Since the content might not be a valid utf8 string and it needs to be
+  // json encoded later, it is encoded using base64 first.
   const b64 = Uint8ToBase64(content);
   dataAggregator.send(JSON.stringify(['page_content', [b64, contentHash]]));
 };
