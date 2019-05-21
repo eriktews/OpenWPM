@@ -23,7 +23,7 @@ async function main() {
       js_instrument:true,
       http_instrument:true,
       save_javascript:false,
-      save_all_content:false,
+      save_all_content:true,
       crawl_id:0
     };
   }

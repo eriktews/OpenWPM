@@ -161,12 +161,14 @@ export let saveRecord = function(instrument, record) {
 export let saveContent = async function(content, contentHash) {
   // Send page content to the data aggregator
   // deduplicated by contentHash in a levelDB database
+  let serialized = BSON.serialize({'payload': ['page_content', [content, contentHash]]})
   if (debugging) {
     console.log("LDB contentHash:",contentHash,"with length",content.length);
+    console.log("Serialized:",serialized);
     return;
   }
   // dataAggregator.send(JSON.stringify(['page_content', [content, contentHash]]));
-  dataAggregator.send(BSON.serialize({'payload': ['page_content', [content, contentHash]]}), 'b');
+  dataAggregator.send(serialized, 'b');
 };
 
 function encode_utf8(s) {
