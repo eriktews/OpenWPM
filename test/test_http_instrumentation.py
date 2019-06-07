@@ -636,6 +636,9 @@ class TestPOSTInstrument(OpenWPMTest):
         r'["name surname+"],'\
         r'"multiline_text":["line1\r\n\r\nline2 line2_word2"]}'
     post_data_multiline_json = json.loads(post_data_multiline)
+    post_data_multiline_raw = 'email=test@example.com\r\n'\
+        'username=name surname+\r\nmultiline_text=line1\r\n\r\n'\
+        'line2 line2_word2\r\n'
 
     def get_config(self, data_dir=""):
         manager_params, browser_params = self.get_test_config(data_dir)
@@ -666,8 +669,7 @@ class TestPOSTInstrument(OpenWPMTest):
         encoding_type = "text/plain"
         db = self.visit('/post_request.html?encoding_type=' + encoding_type)
         post_body = self.get_post_request_body_from_db(db, True)
-        assert json.loads(
-            post_body.decode('utf8')) == self.post_data_multiline_json
+        assert post_body.decode('utf8') == self.post_data_multiline_raw
 
     def test_record_post_data_multipart_formdata(self):
         encoding_type = "multipart/form-data"
