@@ -665,8 +665,9 @@ class TestPOSTInstrument(OpenWPMTest):
     def test_record_post_data_text_plain(self):
         encoding_type = "text/plain"
         db = self.visit('/post_request.html?encoding_type=' + encoding_type)
-        post_body = self.get_post_request_body_from_db(db)
-        assert json.loads(post_body) == self.post_data_multiline_json
+        post_body = self.get_post_request_body_from_db(db, True)
+        assert json.loads(
+            post_body.decode('utf8')) == self.post_data_multiline_json
 
     def test_record_post_data_multipart_formdata(self):
         encoding_type = "multipart/form-data"
