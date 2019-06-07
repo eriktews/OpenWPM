@@ -651,7 +651,8 @@ class TestPOSTInstrument(OpenWPMTest):
         """Return the body of the first POST request in crawl db."""
         posts = self.get_post_requests_from_db(db)
         if raw:
-            return base64.b64decode(json.loads(posts[0]['post_body_raw'])[1])
+            return base64.b64decode(
+                json.loads(posts[0]['post_body_raw'])[0][1])
         else:
             return posts[0]['post_body']
 
