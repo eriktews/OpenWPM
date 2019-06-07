@@ -712,8 +712,7 @@ class TestPOSTInstrument(OpenWPMTest):
         post_body = self.get_post_request_body_from_db(db, True)
         # Binary strings get put into the database as-if they were latin-1.
         import six
-        assert six.binary_type(
-            bytearray(range(100))) == post_body.encode('latin-1')
+        assert six.binary_type(bytearray(range(100))) == post_body
 
     def test_record_file_upload(self):
         """Test that we correctly capture the uploaded file contents.
