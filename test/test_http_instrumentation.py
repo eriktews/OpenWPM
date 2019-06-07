@@ -649,7 +649,7 @@ class TestPOSTInstrument(OpenWPMTest):
     def get_post_request_body_from_db(self, db, raw=False):
         """Return the body of the first POST request in crawl db."""
         posts = self.get_post_requests_from_db(db)
-        field = 'post_body' if raw else 'post_body_raw'
+        field = 'post_body_raw' if raw else 'post_body'
         return posts[0][field]
 
     def test_record_post_data_x_www_form_urlencoded(self):
