@@ -705,7 +705,7 @@ class TestPOSTInstrument(OpenWPMTest):
     def test_record_binary_post_data(self):
         post_format = "binary"
         db = self.visit("/post_request_ajax.html?format=" + post_format)
-        post_body = self.get_post_request_body_from_db(db)
+        post_body = self.get_post_request_body_from_db(db, True)
         # Binary strings get put into the database as-if they were latin-1.
         import six
         assert six.binary_type(
