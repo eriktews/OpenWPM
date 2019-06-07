@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+import base64
 import json
 import os
 from hashlib import sha256
@@ -650,7 +651,7 @@ class TestPOSTInstrument(OpenWPMTest):
         """Return the body of the first POST request in crawl db."""
         posts = self.get_post_requests_from_db(db)
         field = 'post_body_raw' if raw else 'post_body'
-        return json.loads(posts[0][field])[1]
+        return base64.b64decode(json.loads(posts[0][field])[1])
 
     def test_record_post_data_x_www_form_urlencoded(self):
         encoding_type = "application/x-www-form-urlencoded"
