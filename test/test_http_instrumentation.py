@@ -653,7 +653,7 @@ class TestPOSTInstrument(OpenWPMTest):
         if raw:
             return base64.b64decode(json.loads(posts[0]['post_body_raw'])[1])
         else:
-            return json.loads(posts[0]['post_body'])
+            return posts[0]['post_body']
 
     def test_record_post_data_x_www_form_urlencoded(self):
         encoding_type = "application/x-www-form-urlencoded"
