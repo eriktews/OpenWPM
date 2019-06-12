@@ -109,6 +109,19 @@ class MyHandler(SimpleHTTPRequestHandler):
         # Otherwise, return file from disk
         return SimpleHTTPRequestHandler.do_GET(self, *args, **kwargs)
 
+    # Based on
+    # https://gist.github.com/bradmontgomery/2219997#gistcomment-1844871
+    def do_POST(self, *args, **kwargs):
+        # Doesn't do anything with posted data
+        content_length = int(self.headers['Content-Length'])
+        self.rfile.read(content_length)
+        print("Content-Length: {}".format(content_length))
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write(
+            "<html><body><h1>POST!</h1></body></html>".encode('utf8'))
+
 
 def start_server():
     """ Start a simple HTTP server to run local tests.
