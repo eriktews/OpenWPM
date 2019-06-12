@@ -21,14 +21,28 @@ expected_lso_content_b = [
     u'test_key',
     u'REPLACEME']
 
-expected_js_cookie = (
-    1,  # visit id
-    u'%s' % utilities.BASE_TEST_URL_DOMAIN,
-    u'test_cookie',
-    u'Test-0123456789',
-    u'%s' % utilities.BASE_TEST_URL_DOMAIN,
-    u'/')
+# expected_js_cookie = (
+#     1,  # visit id
+#     u'%s' % utilities.BASE_TEST_URL_DOMAIN,
+#     u'test_cookie',
+#     u'Test-0123456789',
+#     u'%s' % utilities.BASE_TEST_URL_DOMAIN,
+#     u'/')
 
+expected_js_cookie = (
+    1,                   # visit_id
+    'added-or-changed',  # record_type
+    'explicit',          # change_cause
+    0,                   # is_http_only
+    1,                   # is_host_only
+    0,                   # is_session
+    'localtest.me',      # host
+    0,                   # is_secure
+    'test_cookie',       # name
+    '/',                 # path
+    'Test-0123456789',   # value
+    'no_restriction'     # no_restriction
+)
 
 class TestStorageVectors(OpenWPMTest):
     """ Runs some basic tests to check that the saving of
@@ -120,8 +134,10 @@ class TestStorageVectors(OpenWPMTest):
         manager.close()
         # Check that the JS cookie we stored is recorded
         qry_res = db_utils.query_db(
-            manager_params['db'],
-            "SELECT * FROM javascript_cookies",
+            manager_params['db'], (
+                "SELECT visit_id, record_type, change_cause, is_http_only, "
+                "is_host_only, is_session, host, is_secure, name, path, "
+                "value, no_restriction FROM javascript_cookies"),
             as_tuple=True
         )
         assert len(qry_res) == 1  # we store only one cookie
