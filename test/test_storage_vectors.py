@@ -127,4 +127,4 @@ class TestStorageVectors(OpenWPMTest):
         assert len(qry_res) == 1  # we store only one cookie
         cookies = qry_res[0]  # take the first cookie
         # compare URL, domain, name, value, origin, path
-        assert cookies[2:8] == expected_js_cookie
+        assert cookies == expected_js_cookie
