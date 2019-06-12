@@ -30,19 +30,20 @@ expected_lso_content_b = [
 #     u'/')
 
 expected_js_cookie = (
-    1,                   # visit_id
-    'added-or-changed',  # record_type
-    'explicit',          # change_cause
-    0,                   # is_http_only
-    1,                   # is_host_only
-    0,                   # is_session
-    'localtest.me',      # host
-    0,                   # is_secure
-    'test_cookie',       # name
-    '/',                 # path
-    'Test-0123456789',   # value
-    'no_restriction'     # no_restriction
+    1,                                       # visit_id
+    'added-or-changed',                      # record_type
+    'explicit',                              # change_cause
+    0,                                       # is_http_only
+    1,                                       # is_host_only
+    0,                                       # is_session
+    u'%s' % utilities.BASE_TEST_URL_DOMAIN,  # host
+    0,                                       # is_secure
+    'test_cookie',                           # name
+    '/',                                     # path
+    'Test-0123456789',                       # value
+    'no_restriction'                         # no_restriction
 )
+
 
 class TestStorageVectors(OpenWPMTest):
     """ Runs some basic tests to check that the saving of
