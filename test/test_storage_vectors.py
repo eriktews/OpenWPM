@@ -114,13 +114,13 @@ class TestStorageVectors(OpenWPMTest):
         url = utilities.BASE_TEST_URL + "/js_cookie.html"
         cs = CommandSequence.CommandSequence(url)
         cs.get(sleep=3, timeout=120)
-        cs.dump_profile_cookies()
+        # cs.dump_profile_cookies()
         manager.execute_command_sequence(cs)
         manager.close()
         # Check that the JS cookie we stored is recorded
         qry_res = db_utils.query_db(
             manager_params['db'],
-            "SELECT * FROM profile_cookies",
+            "SELECT * FROM javascript_cookies",
             as_tuple=True
         )
         assert len(qry_res) == 1  # we store only one cookie
