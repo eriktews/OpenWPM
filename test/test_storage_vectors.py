@@ -110,6 +110,7 @@ class TestStorageVectors(OpenWPMTest):
         """ Check that profile cookies set by JS are saved """
         # Run the test crawl
         manager_params, browser_params = self.get_config()
+        browser_params[0]['cookie_instrument'] = True
         manager = TaskManager.TaskManager(manager_params, browser_params)
         url = utilities.BASE_TEST_URL + "/js_cookie.html"
         cs = CommandSequence.CommandSequence(url)
