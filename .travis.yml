@@ -33,10 +33,21 @@ script:
 
 jobs:
   include:
-    language:
+  - language:
     python:
     env:
-      - TESTS="Docker"
+      - TESTS="Dockerfile-dev"
+    services:
+      - docker
+    before_install:
+    before_script:
+    install:
+    script:
+      - docker build -f Dockerfile-dev -t openwpm-dev .
+  - language:
+    python:
+    env:
+      - TESTS="Dockerfile"
     services:
       - docker
     before_install:
