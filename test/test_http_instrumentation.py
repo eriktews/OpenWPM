@@ -512,7 +512,7 @@ class TestHTTPInstrument(OpenWPMTest):
             dst = row['new_request_url'].split('?')[0]
             headers = json.loads(row['headers'])
             location = ''
-            for h,v in headers:
+            for h, v in headers:
                 if h.lower() == 'location':
                     location = v
                     break
