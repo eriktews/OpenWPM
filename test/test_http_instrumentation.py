@@ -204,19 +204,19 @@ HTTP_RESPONSES = {
 HTTP_REDIRECTS = {
     (u'http://localtest.me:8000/MAGIC_REDIRECT/req1.png',
      u'http://localtest.me:8000/MAGIC_REDIRECT/req2.png',
-     u'frame2.png?dst=/404.png'),
+     u'req2.png?dst=req3.png&dst=/test_pages/shared/test_image_2.png'),
     (u'http://localtest.me:8000/MAGIC_REDIRECT/req2.png',
      u'http://localtest.me:8000/MAGIC_REDIRECT/req3.png',
-     u'/404.png'),
+     u'req3.png?dst=/test_pages/shared/test_image_2.png'),
     (u'http://localtest.me:8000/MAGIC_REDIRECT/req3.png',
      u'http://localtest.me:8000/test_pages/shared/test_image_2.png',
-     u'req2.png?dst=req3.png&dst=/test_pages/shared/test_image_2.png'),
+     u'/test_pages/shared/test_image_2.png'),
     (u'http://localtest.me:8000/MAGIC_REDIRECT/frame1.png',
      u'http://localtest.me:8000/MAGIC_REDIRECT/frame2.png',
-     u'req3.png?dst=/test_pages/shared/test_image_2.png'),
+     u'frame2.png?dst=/404.png'),
     (u'http://localtest.me:8000/MAGIC_REDIRECT/frame2.png',
      u'http://localtest.me:8000/404.png',
-     u'/test_pages/shared/test_image_2.png')
+     u'/404.png')
 }
 
 # Data for test_cache_hits_recorded
